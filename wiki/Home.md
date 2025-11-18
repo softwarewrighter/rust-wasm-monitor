@@ -63,7 +63,7 @@ This project implements a lightweight system monitoring tool that showcases how 
 
 ### Getting Started
 - [Architecture Overview](Architecture.md#overview)
-- [Quick Start Guide](../QUICK_START.md)
+- [Quick Start Guide](https://github.com/softwarewrighter/rust-wasm-monitor/blob/main/QUICK_START.md)
 - [API Reference](API-Reference)
 
 ### Understanding the Approach
@@ -192,10 +192,10 @@ This project serves as a reference implementation of the code-first approach. Ar
 
 ## External Resources
 
-- [Project README](../README.md) - Main project documentation
-- [Quick Start Guide](../QUICK_START.md) - Get up and running in 5 minutes
+- [Project README](https://github.com/softwarewrighter/rust-wasm-monitor/blob/main/README.md) - Main project documentation
+- [Quick Start Guide](https://github.com/softwarewrighter/rust-wasm-monitor/blob/main/QUICK_START.md) - Get up and running in 5 minutes
 - [Anthropic's MCP Research](https://www.anthropic.com/research/building-effective-agents) - Original research paper
-- [Original Research Notes](../docs/research.md) - Project inception and design decisions
+- [Original Research Notes](https://github.com/softwarewrighter/rust-wasm-monitor/blob/main/docs/research.md) - Project inception and design decisions
 
 ## Version Information
 

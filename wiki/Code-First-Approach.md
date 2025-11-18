@@ -780,7 +780,7 @@ export async function checkServerHealth() {
 
 - [Anthropic: Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)
 - [MCP Specification](https://spec.modelcontextprotocol.io/)
-- Original research: [docs/research.md](../docs/research.md)
+- Original research: [docs/research.md](https://github.com/softwarewrighter/rust-wasm-monitor/blob/main/docs/research.md)
 
 ---
 
