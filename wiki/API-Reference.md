@@ -786,11 +786,11 @@ setInterval(async () => {
 
 ## Related Documentation
 
-- [TypeScript Integration](TypeScript-Integration.md) - Integration details
-- [Core Components](Core-Components.md) - Rust implementation
-- [Architecture](Architecture.md) - System architecture
-- [Code-First Approach](Code-First-Approach.md) - Usage pattern
+- [TypeScript Integration](TypeScript-Integration) - Integration details
+- [Core Components](Core-Components) - Rust implementation
+- [Architecture](Architecture) - System architecture
+- [Code-First Approach](Code-First-Approach) - Usage pattern
 
 ---
 
-[Back to Home](Home.md)
+[Back to Home](Home)

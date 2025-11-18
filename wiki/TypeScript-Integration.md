@@ -42,7 +42,7 @@ graph TB
         C[Node.js Script]
     end
 
-    subgraph "TypeScript Layer<br/>tools/system-monitor/index.ts"
+    subgraph "TypeScript Layer tools/system-monitor/index.ts"
         D[getSystemInfo]
         E[getMemoryInfo]
         F[listDisks]
@@ -51,11 +51,11 @@ graph TB
         I[init]
     end
 
-    subgraph "WASM Bindings<br/>pkg/rust_wasm_monitor.js"
+    subgraph "WASM Bindings pkg/rust_wasm_monitor.js"
         J[SystemMonitor class]
     end
 
-    subgraph "WASM Binary<br/>pkg/rust_wasm_monitor_bg.wasm"
+    subgraph "WASM Binary pkg/rust_wasm_monitor_bg.wasm"
         K[Rust Implementation]
     end
 
@@ -709,11 +709,11 @@ export default {
 
 ## Related Documentation
 
-- [Architecture](Architecture.md) - System architecture
-- [Core Components](Core-Components.md) - Rust implementation details
-- [API Reference](API-Reference.md) - Complete API documentation
-- [Code-First Approach](Code-First-Approach.md) - Discovery pattern
+- [Architecture](Architecture) - System architecture
+- [Core Components](Core-Components) - Rust implementation details
+- [API Reference](API-Reference) - Complete API documentation
+- [Code-First Approach](Code-First-Approach) - Discovery pattern
 
 ---
 
-[Back to Home](Home.md)
+[Back to Home](Home)

@@ -153,7 +153,7 @@ echo "Build complete!"
 
 ```mermaid
 flowchart TD
-    START([./build.sh]) --> CHECK{wasm-pack<br/>installed?}
+    START([./build.sh]) --> CHECK{wasm-pack installed?}
     CHECK -->|No| ERROR[Exit with error]
     CHECK -->|Yes| BUILD[wasm-pack build]
 
@@ -789,9 +789,9 @@ lto = false         # No LTO
 
 ## Related Documentation
 
-- [Architecture](Architecture.md) - Overall system design
-- [Core Components](Core-Components.md) - Rust implementation
-- [TypeScript Integration](TypeScript-Integration.md) - Using the build artifacts
+- [Architecture](Architecture) - Overall system design
+- [Core Components](Core-Components) - Rust implementation
+- [TypeScript Integration](TypeScript-Integration) - Using the build artifacts
 
 ## External Resources
 
@@ -802,4 +802,4 @@ lto = false         # No LTO
 
 ---
 
-[Back to Home](Home.md)
+[Back to Home](Home)

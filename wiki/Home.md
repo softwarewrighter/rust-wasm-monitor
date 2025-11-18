@@ -18,13 +18,13 @@ This project implements a lightweight system monitoring tool that showcases how 
 
 ### Core Documentation
 
-1. **[Architecture](Architecture.md)**
+1. **[Architecture](Architecture)**
    - System architecture overview
    - Component interaction diagrams
    - Data flow visualization
    - Technology stack details
 
-2. **[Code-First Approach](Code-First-Approach.md)**
+2. **[Code-First Approach](Code-First-Approach)**
    - Understanding the code-first pattern
    - Token savings breakdown
    - Progressive discovery mechanism
@@ -32,19 +32,19 @@ This project implements a lightweight system monitoring tool that showcases how 
 
 ### Component Documentation
 
-3. **[Core Components](Core-Components.md)**
+3. **[Core Components](Core-Components)**
    - Rust library implementation (`src/lib.rs`)
    - System information collection
    - WASM bindings
    - Data structures and serialization
 
-4. **[TypeScript Integration](TypeScript-Integration.md)**
+4. **[TypeScript Integration](TypeScript-Integration)**
    - TypeScript wrapper layer
    - Type-safe API wrappers
    - Lazy initialization pattern
    - Error handling
 
-5. **[Build System](Build-System.md)**
+5. **[Build System](Build-System)**
    - Build process overview
    - WASM compilation workflow
    - Optimization settings
@@ -52,7 +52,7 @@ This project implements a lightweight system monitoring tool that showcases how 
 
 ### Reference Documentation
 
-6. **[API Reference](API-Reference.md)**
+6. **[API Reference](API-Reference)**
    - Complete API documentation
    - Function signatures
    - Return types
@@ -64,7 +64,7 @@ This project implements a lightweight system monitoring tool that showcases how 
 ### Getting Started
 - [Architecture Overview](Architecture.md#overview)
 - [Quick Start Guide](../QUICK_START.md)
-- [API Reference](API-Reference.md)
+- [API Reference](API-Reference)
 
 ### Understanding the Approach
 - [Why Code-First?](Code-First-Approach.md#why-code-first)
@@ -72,10 +72,10 @@ This project implements a lightweight system monitoring tool that showcases how 
 - [Discovery Pattern](Code-First-Approach.md#discovery-pattern)
 
 ### Technical Deep Dives
-- [System Architecture](Architecture.md)
-- [Rust Implementation](Core-Components.md)
-- [TypeScript Layer](TypeScript-Integration.md)
-- [Build Pipeline](Build-System.md)
+- [System Architecture](Architecture)
+- [Rust Implementation](Core-Components)
+- [TypeScript Layer](TypeScript-Integration)
+- [Build Pipeline](Build-System)
 
 ## Project Statistics
 

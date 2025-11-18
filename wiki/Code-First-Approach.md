@@ -317,7 +317,7 @@ sequenceDiagram
     Note over Agent: User: "Check system memory"
 
     Agent->>FS: ls ./tools/
-    FS-->>Agent: system-monitor/<br/>database/<br/>ui-testing/
+    FS-->>Agent: system-monitor/ database/ ui-testing/
 
     Agent->>Agent: "system-monitor" looks relevant
 
@@ -771,10 +771,10 @@ export async function checkServerHealth() {
 
 ## Related Documentation
 
-- [Architecture](Architecture.md) - System architecture
-- [TypeScript Integration](TypeScript-Integration.md) - Implementation details
-- [API Reference](API-Reference.md) - Complete API
-- [Core Components](Core-Components.md) - Rust implementation
+- [Architecture](Architecture) - System architecture
+- [TypeScript Integration](TypeScript-Integration) - Implementation details
+- [API Reference](API-Reference) - Complete API
+- [Core Components](Core-Components) - Rust implementation
 
 ## Further Reading
 
@@ -784,4 +784,4 @@ export async function checkServerHealth() {
 
 ---
 
-[Back to Home](Home.md)
+[Back to Home](Home)

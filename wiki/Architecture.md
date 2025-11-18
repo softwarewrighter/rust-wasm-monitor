@@ -46,7 +46,7 @@ graph TB
 
     subgraph "WASM Interop Layer"
         BINDGEN[wasm-bindgen]
-        WASM[WASM Binary<br/>17KB]
+        WASM[WASM Binary 17KB]
         JSON[JSON Serialization]
     end
 
@@ -239,7 +239,7 @@ sequenceDiagram
 
 ```mermaid
 flowchart TD
-    START([Function Called]) --> CHECK{Monitor<br/>Initialized?}
+    START([Function Called]) --> CHECK{Monitor Initialized?}
     CHECK -->|No| LOAD[Load WASM Module]
     CHECK -->|Yes| REFRESH
     LOAD --> CREATE[Create SystemMonitor]
@@ -376,7 +376,7 @@ flowchart LR
     CARGO --> RUSTC[rustc Compiler]
     RUSTC --> OPT[Optimization Pass]
 
-    OPT --> LTO[Link-Time<br/>Optimization]
+    OPT --> LTO[Link-Time Optimization]
     OPT --> SIZE[Size Optimization]
     OPT --> STRIP[Strip Debug Info]
 
@@ -393,7 +393,7 @@ flowchart LR
     WASMBIN --> PKG
     DTS --> PKG
 
-    PKG --> END([Build Complete<br/>~5 seconds])
+    PKG --> END([Build Complete ~5 seconds])
 ```
 
 ### Build Optimization Flow
@@ -401,8 +401,8 @@ flowchart LR
 ```mermaid
 graph TB
     subgraph "Source Code"
-        A[src/lib.rs<br/>273 lines]
-        B[Cargo.toml<br/>Config]
+        A[src/lib.rs 273 lines]
+        B[Cargo.toml Config]
     end
 
     subgraph "Compilation Flags"
@@ -418,9 +418,9 @@ graph TB
     end
 
     subgraph "Output"
-        I[WASM Binary<br/>17KB]
-        J[JS Bindings<br/>~30KB]
-        K[TypeScript Defs<br/>~5KB]
+        I[WASM Binary 17KB]
+        J[JS Bindings ~30KB]
+        K[TypeScript Defs ~5KB]
     end
 
     A --> G
@@ -544,7 +544,7 @@ flowchart TD
 ```mermaid
 graph TB
     A[AI Model] --> B[MCP Client]
-    B --> C[Load All Tool Definitions<br/>150,000 tokens]
+    B --> C[Load All Tool Definitions 150,000 tokens]
     C --> D[MCP Server]
     D --> E[Tool Implementation]
     E --> F[System APIs]
@@ -560,7 +560,7 @@ graph TB
 ```mermaid
 graph TB
     A[AI Agent] --> B[Explore Filesystem]
-    B --> C[Read Tool Files<br/>~2,000 tokens]
+    B --> C[Read Tool Files ~2,000 tokens]
     C --> D[Write Code]
     D --> E[TypeScript Execution]
     E --> F[WASM Call]
@@ -577,11 +577,11 @@ graph TB
 
 ## Related Documentation
 
-- [Core Components](Core-Components.md) - Detailed Rust implementation
-- [TypeScript Integration](TypeScript-Integration.md) - TypeScript wrapper details
-- [Build System](Build-System.md) - Build process and optimization
-- [Code-First Approach](Code-First-Approach.md) - Discovery pattern details
+- [Core Components](Core-Components) - Detailed Rust implementation
+- [TypeScript Integration](TypeScript-Integration) - TypeScript wrapper details
+- [Build System](Build-System) - Build process and optimization
+- [Code-First Approach](Code-First-Approach) - Discovery pattern details
 
 ---
 
-[Back to Home](Home.md)
+[Back to Home](Home)

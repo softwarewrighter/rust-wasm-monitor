@@ -750,7 +750,7 @@ impl SystemMonitor {
 }
 ```
 
-3. **Add TypeScript wrapper** (see [TypeScript Integration](TypeScript-Integration.md))
+3. **Add TypeScript wrapper** (see [TypeScript Integration](TypeScript-Integration))
 
 ### Example: Temperature Monitoring
 
@@ -788,11 +788,11 @@ impl SystemMonitor {
 
 ## Related Documentation
 
-- [Architecture](Architecture.md) - System architecture overview
-- [TypeScript Integration](TypeScript-Integration.md) - TypeScript wrapper layer
-- [API Reference](API-Reference.md) - Complete API documentation
-- [Build System](Build-System.md) - Compilation and optimization
+- [Architecture](Architecture) - System architecture overview
+- [TypeScript Integration](TypeScript-Integration) - TypeScript wrapper layer
+- [API Reference](API-Reference) - Complete API documentation
+- [Build System](Build-System) - Compilation and optimization
 
 ---
 
-[Back to Home](Home.md)
+[Back to Home](Home)
