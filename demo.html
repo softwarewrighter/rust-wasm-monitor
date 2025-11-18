@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust/WASM System Monitor Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h2 {
+            color: #333;
+            margin-bottom: 16px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .info-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #666;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            color: #333;
+            font-size: 1.1em;
+            word-break: break-all;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 24px;
+            background: #e9ecef;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+
+        .disk-item {
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .disk-header {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .cpu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .cpu-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 10px auto;
+            display: block;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2em;
+            padding: 40px;
+        }
+
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .token-savings {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .token-savings h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .token-savings p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rust/WASM System Monitor</h1>
+        <p class="subtitle">Code-First Alternative to MCP Servers - 98.7% Token Reduction</p>
+
+        <div class="token-savings">
+            <h3>Token Efficiency</h3>
+            <p>Traditional MCP: ~150,000 tokens | Code-First: ~2,000 tokens | Savings: 98.7%</p>
+        </div>
+
+        <div id="loading" class="loading">
+            Loading WASM module...
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="content" style="display: none;">
+            <button onclick="refreshAll()">Refresh All Data</button>
+
+            <div class="card">
+                <h2>System Information</h2>
+                <div id="system-info" class="info-grid"></div>
+            </div>
+
+            <div class="card">
+                <h2>Memory Usage</h2>
+                <div id="memory-info"></div>
+            </div>
+
+            <div class="card">
+                <h2>Disk Mounts</h2>
+                <div id="disk-info"></div>
+            </div>
+
+            <div class="card">
+                <h2>CPU Information</h2>
+                <div id="cpu-info" class="cpu-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import init, { SystemMonitor } from './pkg/rust_wasm_monitor.js';
+
+        let monitor;
+
+        function formatBytes(bytes) {
+            const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+            if (bytes === 0) return '0 B';
+            const i = Math.floor(Math.log(bytes) / Math.log(1024));
+            return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function formatUptime(seconds) {
+            const days = Math.floor(seconds / 86400);
+            const hours = Math.floor((seconds % 86400) / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            return `${days}d ${hours}h ${minutes}m`;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+
+        function updateSystemInfo() {
+            try {
+                const json = monitor.get_system_info();
+                const info = JSON.parse(json);
+
+                const html = `
+                    <div class="info-item">
+                        <div class="info-label">Operating System</div>
+                        <div class="info-value">${info.os}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">OS Version</div>
+                        <div class="info-value">${info.os_version}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Kernel Version</div>
+                        <div class="info-value">${info.kernel_version}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Hostname</div>
+                        <div class="info-value">${info.hostname}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">CPU Count</div>
+                        <div class="info-value">${info.cpu_count}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Total Memory</div>
+                        <div class="info-value">${formatBytes(info.total_memory)}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Uptime</div>
+                        <div class="info-value">${formatUptime(info.uptime)}</div>
+                    </div>
+                `;
+
+                document.getElementById('system-info').innerHTML = html;
+            } catch (e) {
+                showError('Failed to get system info: ' + e.message);
+            }
+        }
+
+        function updateMemoryInfo() {
+            try {
+                const json = monitor.get_memory_info();
+                const info = JSON.parse(json);
+
+                const html = `
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Total</div>
+                            <div class="info-value">${formatBytes(info.total)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Used</div>
+                            <div class="info-value">${formatBytes(info.used)}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Available</div>
+                            <div class="info-value">${formatBytes(info.available)}</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${info.usage_percent}%">
+                            ${info.usage_percent.toFixed(1)}%
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('memory-info').innerHTML = html;
+            } catch (e) {
+                showError('Failed to get memory info: ' + e.message);
+            }
+        }
+
+        function updateDiskInfo() {
+            try {
+                const json = monitor.list_disks();
+                const disks = JSON.parse(json);
+
+                const html = disks.map(disk => `
+                    <div class="disk-item">
+                        <div class="disk-header">${disk.name} - ${disk.mount_point}</div>
+                        <div class="info-grid" style="margin-bottom: 8px;">
+                            <div class="info-item">
+                                <div class="info-label">Total</div>
+                                <div class="info-value">${formatBytes(disk.total_space)}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">Available</div>
+                                <div class="info-value">${formatBytes(disk.available_space)}</div>
+                            </div>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${disk.usage_percent}%">
+                                ${disk.usage_percent.toFixed(1)}%
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+
+                document.getElementById('disk-info').innerHTML = html || '<p>No disks found</p>';
+            } catch (e) {
+                showError('Failed to get disk info: ' + e.message);
+            }
+        }
+
+        function updateCpuInfo() {
+            try {
+                const json = monitor.get_cpu_info();
+                const cpus = JSON.parse(json);
+
+                const html = cpus.map((cpu, i) => `
+                    <div class="cpu-item">
+                        <div class="info-label">CPU ${i}</div>
+                        <div class="info-value">${cpu.usage.toFixed(1)}%</div>
+                        <div style="font-size: 0.85em; color: #666; margin-top: 4px;">
+                            ${cpu.frequency} MHz
+                        </div>
+                    </div>
+                `).join('');
+
+                document.getElementById('cpu-info').innerHTML = html || '<p>No CPU info available</p>';
+            } catch (e) {
+                showError('Failed to get CPU info: ' + e.message);
+            }
+        }
+
+        window.refreshAll = function() {
+            monitor.refresh();
+            updateSystemInfo();
+            updateMemoryInfo();
+            updateDiskInfo();
+            updateCpuInfo();
+        };
+
+        async function main() {
+            try {
+                await init();
+                monitor = SystemMonitor.new();
+
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('content').style.display = 'block';
+
+                refreshAll();
+            } catch (e) {
+                document.getElementById('loading').style.display = 'none';
+                showError('Failed to initialize WASM module: ' + e.message);
+            }
+        }
+
+        main();
+    </script>
+</body>
+</html>
